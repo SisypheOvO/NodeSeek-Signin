@@ -30,10 +30,13 @@ jobs:
       - name: signin
         id: signin
         run: |
-          OUTPUT=$(./signin.sh)
-          echo "output<<EOF" >> $GITHUB_OUTPUT
-          echo "$OUTPUT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          set -o pipefail
+          ./signin.sh | tee signin.log
+          {
+            echo "output<<EOF"
+            cat signin.log
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Send mail
         if: env.USE_SMTP == 'true'
