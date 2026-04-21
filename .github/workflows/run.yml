@@ -13,6 +13,7 @@ jobs:
   GLaDOS-Signin:
     runs-on: ubuntu-latest
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       USE_SMTP: ${{ secrets.USE_SMTP }}
       SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -23,7 +24,7 @@ jobs:
       Random: ${{ secrets.Random }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Set script permissions
         run: chmod +x signin.sh
