@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set script permissions
         run: chmod +x signin.sh
-      
+
       - name: signin
         id: signin
         run: |
@@ -34,7 +34,7 @@ jobs:
           echo "output<<EOF" >> $GITHUB_OUTPUT
           echo "$OUTPUT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-    
+
       - name: Send mail
         if: env.USE_SMTP == 'true'
         uses: dawidd6/action-send-mail@v3
