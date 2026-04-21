@@ -28,9 +28,12 @@ jobs:
         run: chmod +x signin.sh
       
       - name: signin
+        id: signin
         run: |
           OUTPUT=$(./signin.sh)
-          echo "OUTPUT=$OUTPUT" >> $GITHUB_ENV
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
     
       - name: Send mail
         if: env.USE_SMTP == 'true'
@@ -43,4 +46,4 @@ jobs:
           subject: GLaDOS 每日签到
           to: ${{ env.SMTP_RECEIVER }}
           from: ${{ env.SMTP_USERNAME }}
-          body: ${{ env.OUTPUT }}
+          body: ${{ steps.signin.outputs.output }}
