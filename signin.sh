@@ -33,8 +33,7 @@ for cookie_item in "${COOKIES[@]}"; do
   fi
 
   if ! response=$(curl -sS "$attendance_url" --compressed -X POST \
-    -H "Cookie: $cookie_item" \
-    ...); then
+    -H "Cookie: $cookie_item"); then
     echo "签到失败，网络请求异常"
     continue
   fi
